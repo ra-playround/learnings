@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Project Guide — Web Systems and Technology</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+              950: '#1e1b4b',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    code, pre, .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.4);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.7);
+    }
+    .mockup-frame {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .mockup-frame:hover {
+      transform: translateY(-2px);
+    }
+    @keyframes pulse-row {
+      0%, 100% { background-color: rgba(99, 102, 241, 0.18); }
+      50% { background-color: rgba(99, 102, 241, 0.32); }
+    }
+    .highlight-match {
+      animation: pulse-row 2s infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-[#090d16] dark:text-slate-100 antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 to-indigo-700 text-white flex items-center justify-center shadow-lg shadow-brand-600/25">
+          <i class="fa-solid fa-layer-group text-lg"></i>
+        </div>
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-brand-600 dark:text-brand-400 block">Web Systems and Technology</span>
+          <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">Final Project Instructions & Visual Guide</h1>
+        </div>
+      </div>
+
+      <!-- Desktop Section Quick Links -->
+      <nav class="hidden lg:flex items-center gap-1 text-xs font-semibold">
+        <a href="#part1" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">1. Database Setup</a>
+        <a href="#part2" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">2. Connectivity & Operators</a>
+        <a href="#part3" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">3. Hostinger Deploy</a>
+        <a href="#part4" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">4. Submission & Tracker</a>
+        <a href="#part5" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">5. Reminders</a>
+        <a href="#part6" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">6. References</a>
+      </nav>
+
+      <!-- Right Controls: Progress Pill & Theme Toggle -->
+      <div class="flex items-center gap-2.5">
+        <a href="#part4" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/25 text-xs font-bold text-brand-600 dark:text-brand-300 hover:bg-brand-500/20 transition">
+          <i class="fa-solid fa-list-check"></i>
+          <span id="navProgressText">0 / 14 Ready</span>
+        </a>
+        <button id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Dark Mode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition">
+          <i id="themeIcon" class="fa-solid fa-sun text-sm"></i>
+        </button>
+        <button onclick="toggleMobileMenu()" aria-label="Open Navigation Menu" class="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+          <i class="fa-solid fa-bars text-sm"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-white dark:bg-[#0f172a] border-b border-slate-200 dark:border-slate-800 px-4 py-3 space-y-1 text-xs font-semibold">
+      <a href="#part1" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">Part 1: Database Creation (XAMPP & MySQL)</a>
+      <a href="#part2" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">Part 2: Database Connectivity & SQL Operators</a>
+      <a href="#part3" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">Part 3: Hosting and Deployment (Hostinger)</a>
+      <a href="#part4" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">Part 4: Submission Requirements & Tracker</a>
+      <a href="#part5" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">Part 5: Important Reminders</a>
+      <a href="#part6" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">Part 6: Reference Materials & Objective</a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="relative overflow-hidden border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-indigo-50/70 via-white to-slate-50 dark:from-[#0f172a] dark:via-[#0b1120] dark:to-[#090d16]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-8 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/25 text-brand-700 dark:text-brand-300 text-xs font-bold">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Course: Web Systems and Technology — Visual Step-by-Step Guide</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+            Database Creation, PHP Connectivity &amp; Live Web Deployment
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
+            This interactive, illustrated project guide walks you step-by-step through building a relational MySQL database (<code class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-brand-600 dark:text-brand-300 font-semibold">student_management_system</code>), connecting it securely with PHP PDO, applying SQL comparison &amp; CRUD operators, and deploying to a live Hostinger web server.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a href="#part1" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-brand-600/25 transition flex items-center gap-2">
+              <span>Start Part 1: Visual Setup</span>
+              <i class="fa-solid fa-arrow-down"></i>
+            </a>
+            <a href="#operator-playground" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-600/20 transition flex items-center gap-2">
+              <i class="fa-solid fa-sliders"></i>
+              <span>Interactive SQL Operators Lab</span>
+            </a>
+            <a href="#part4" class="px-5 py-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs sm:text-sm border border-slate-300 dark:border-slate-700 transition flex items-center gap-2">
+              <i class="fa-solid fa-file-arrow-down text-brand-500"></i>
+              <span>Generate Project_Details.txt</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Architecture Overview Card -->
+        <div class="lg:col-span-4 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Project Roadmap</span>
+            <span class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full">6 Parts + Visual Labs</span>
+          </div>
+          <ul class="space-y-2.5 text-xs">
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <div>
+                <strong class="text-slate-900 dark:text-white block">Database Creation (Visual Walkthroughs)</strong>
+                <span class="text-slate-500 dark:text-slate-400">XAMPP/phpMyAdmin &amp; MySQL Workbench UI mockups</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <div>
+                <strong class="text-slate-900 dark:text-white block">PHP PDO &amp; SQL Operators Visual Lab</strong>
+                <span class="text-slate-500 dark:text-slate-400">VS Code setup, <code class="font-mono">students.php</code> &amp; live CRUD operators</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <div>
+                <strong class="text-slate-900 dark:text-white block">Hostinger Cloud Deployment</strong>
+                <span class="text-slate-500 dark:text-slate-400">hPanel database wizard, File Manager &amp; live HTTPS test</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="w-5 h-5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-bold flex items-center justify-center shrink-0 mt-0.5">4</span>
+              <div>
+                <strong class="text-slate-900 dark:text-white block">ZIP Package &amp; Screenshots</strong>
+                <span class="text-slate-500 dark:text-slate-400">6 required screenshots, <code class="font-mono">.sql</code> dump &amp; <code class="font-mono">Project_Details.txt</code></span>
+              </div>
+            </li>
+          </ul>
+          <div class="pt-1">
+            <div class="flex justify-between text-[11px] font-bold mb-1">
+              <span class="text-slate-500 dark:text-slate-400">Submission Readiness</span>
+              <span id="heroProgressPct" class="text-brand-600 dark:text-brand-400 font-mono">0%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+              <div id="heroProgressBar" class="h-full bg-gradient-to-r from-brand-600 to-emerald-500 transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+    <!-- ===================================================================== -->
+    <!-- PART 1: DATABASE CREATION (WITH INTERACTIVE VISUAL UI MOCKUPS)        -->
+    <!-- ===================================================================== -->
+    <section id="part1" class="scroll-mt-24 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-brand-600 dark:text-brand-400">Part 1 — Step-by-Step Illustrated Guide</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Database Creation &amp; Visual Setup</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+            Choose either <strong>Option A (XAMPP &amp; phpMyAdmin)</strong> or <strong>Option B (MySQL Server &amp; MySQL Workbench)</strong>. Click any visual screenshot mockup to enlarge it.
+          </p>
+        </div>
+
+        <!-- Option Switcher Buttons -->
+        <div class="inline-flex p-1 rounded-xl bg-slate-200/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 self-start">
+          <button id="btnOptionA" onclick="switchDbOption('A')" class="px-4 py-2 rounded-lg text-xs font-bold bg-white dark:bg-brand-600 text-slate-900 dark:text-white shadow transition">
+            <i class="fa-solid fa-server mr-1.5"></i> Option A: XAMPP &amp; phpMyAdmin
+          </button>
+          <button id="btnOptionB" onclick="switchDbOption('B')" class="px-4 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+            <i class="fa-solid fa-database mr-1.5"></i> Option B: MySQL Workbench
+          </button>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- OPTION A: XAMPP & phpMyAdmin WITH VISUAL SCREENSHOT WALKTHROUGHS  -->
+      <!-- ================================================================= -->
+      <div id="contentOptionA" class="space-y-8">
+        <!-- Step-by-Step Visual Walkthrough Cards -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          <!-- VISUAL STEP A1: XAMPP Control Panel -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-orange-500/15 text-orange-600 dark:text-orange-400 font-extrabold text-xs flex items-center justify-center">A1</span>
+                <div>
+                  <h3 class="font-bold text-sm text-slate-900 dark:text-white">Install &amp; Start XAMPP Services</h3>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">Start <strong>Apache</strong> (Port 80, 443) and <strong>MySQL</strong> (Port 3306)</p>
+                </div>
+              </div>
+              <button onclick="openLightbox('mockup-xampp', 'Step A1: XAMPP Control Panel v3.3.0 — Apache & MySQL Running')" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition flex items-center gap-1">
+                <i class="fa-solid fa-expand"></i> Zoom
+              </button>
+            </div>
+
+            <ol class="list-decimal list-inside space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
+              <li>Download XAMPP (PHP 8.x) from <a href="https://www.apachefriends.org" target="_blank" rel="noopener" class="text-brand-600 dark:text-brand-400 underline font-semibold">apachefriends.org</a> and install to <code class="font-mono text-[11px]">C:\xampp</code>.</li>
+              <li>Open <strong>XAMPP Control Panel</strong> and click <strong>Start</strong> beside <strong>Apache</strong> and <strong>MySQL</strong> until both labels turn <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-bold">Green</span>.</li>
+              <li>Click <strong>Admin</strong> next to MySQL (or visit <code class="font-mono text-[11px]">http://localhost/phpmyadmin</code>).</li>
+            </ol>
+
+            <!-- Realistic UI Mockup: XAMPP Control Panel -->
+            <div id="mockup-xampp" class="mockup-frame rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-[#f0f0f0] text-slate-800 shadow-md select-none">
+              <!-- Windows Title Bar -->
+              <div class="bg-gradient-to-r from-[#d9531e] to-[#e66c37] text-white px-3 py-1.5 flex items-center justify-between text-[11px] font-bold">
+                <div class="flex items-center gap-2">
+                  <span class="w-3.5 h-3.5 rounded-sm bg-white text-[#d9531e] font-black flex items-center justify-center text-[9px]">X</span>
+                  <span>XAMPP Control Panel v3.3.0 [ Compiled: Apr 6th 2021 ]</span>
+                </div>
+                <div class="flex items-center gap-1.5 opacity-90">
+                  <span class="px-1.5 bg-black/20 rounded">_</span>
+                  <span class="px-1.5 bg-black/20 rounded">□</span>
+                  <span class="px-1.5 bg-rose-600 rounded">×</span>
+                </div>
+              </div>
+              <!-- Control Panel Body -->
+              <div class="p-3 space-y-2.5 text-[11px]">
+                <div class="flex items-center justify-between border-b border-slate-300 pb-1.5 font-bold text-slate-600">
+                  <span>Modules</span>
+                  <span class="text-[10px] text-emerald-700 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded">● Services Active</span>
+                </div>
+                <!-- Table Header -->
+                <div class="grid grid-cols-12 gap-1 font-bold text-[10px] text-slate-500 px-1">
+                  <div class="col-span-2">Service</div>
+                  <div class="col-span-3">Module</div>
+                  <div class="col-span-2">PID(s)</div>
+                  <div class="col-span-2">Port(s)</div>
+                  <div class="col-span-3 text-right">Actions</div>
+                </div>
+                <!-- Apache Row -->
+                <div class="grid grid-cols-12 gap-1 items-center bg-white p-1.5 rounded border border-slate-300">
+                  <div class="col-span-2"><span class="inline-block w-3.5 h-3.5 rounded bg-emerald-500 text-white text-[9px] text-center leading-3.5 font-bold">✓</span></div>
+                  <div class="col-span-3"><span class="bg-[#8ce99a] text-emerald-950 font-bold px-1.5 py-0.5 rounded">Apache</span></div>
+                  <div class="col-span-2 font-mono text-[10px]">8412, 9104</div>
+                  <div class="col-span-2 font-mono text-[10px] font-bold text-indigo-700">80, 443</div>
+                  <div class="col-span-3 flex justify-end gap-1">
+                    <span class="px-1.5 py-0.5 bg-slate-200 border border-slate-400 rounded text-[10px] font-semibold">Stop</span>
+                    <span class="px-1.5 py-0.5 bg-slate-100 border border-slate-400 rounded text-[10px]">Admin</span>
+                  </div>
+                </div>
+                <!-- MySQL Row -->
+                <div class="grid grid-cols-12 gap-1 items-center bg-white p-1.5 rounded border-2 border-emerald-500 shadow-sm">
+                  <div class="col-span-2"><span class="inline-block w-3.5 h-3.5 rounded bg-emerald-500 text-white text-[9px] text-center leading-3.5 font-bold">✓</span></div>
+                  <div class="col-span-3"><span class="bg-[#8ce99a] text-emerald-950 font-bold px-1.5 py-0.5 rounded">MySQL</span></div>
+                  <div class="col-span-2 font-mono text-[10px]">5128</div>
+                  <div class="col-span-2 font-mono text-[10px] font-bold text-indigo-700">3306</div>
+                  <div class="col-span-3 flex justify-end gap-1">
+                    <span class="px-1.5 py-0.5 bg-slate-200 border border-slate-400 rounded text-[10px] font-semibold">Stop</span>
+                    <span class="px-1.5 py-0.5 bg-brand-600 text-white rounded text-[10px] font-bold animate-pulse">Admin ↗</span>
+                  </div>
+                </div>
+                <!-- Console Output -->
+                <div class="bg-white border border-slate-300 rounded p-2 font-mono text-[10px] text-slate-600 space-y-0.5">
+                  <div><span class="text-slate-400">13:30:12</span> <span class="text-blue-700">[Apache]</span> Status change detected: <span class="text-emerald-700 font-bold">running</span></div>
+                  <div><span class="text-slate-400">13:30:15</span> <span class="text-blue-700">[mysql]</span> Status change detected: <span class="text-emerald-700 font-bold">running</span> on port <span class="font-bold">3306</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VISUAL STEP A2: phpMyAdmin Create Database -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-brand-500/15 text-brand-600 dark:text-brand-400 font-extrabold text-xs flex items-center justify-center">A2</span>
+                <div>
+                  <h3 class="font-bold text-sm text-slate-900 dark:text-white">Create Database in phpMyAdmin</h3>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">Set name <code class="font-mono">student_management_system</code> &amp; collation <code class="font-mono">utf8mb4_general_ci</code></p>
+                </div>
+              </div>
+              <button onclick="openLightbox('mockup-pma-db', 'Step A2: phpMyAdmin — Create Database student_management_system')" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition flex items-center gap-1">
+                <i class="fa-solid fa-expand"></i> Zoom
+              </button>
+            </div>
+
+            <ol class="list-decimal list-inside space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
+              <li>In phpMyAdmin, click the <strong>Databases</strong> tab on the top navigation bar (or click <strong>New</strong> in the left sidebar).</li>
+              <li>Type <code class="font-mono font-bold text-brand-600 dark:text-brand-400">student_management_system</code> into the Database name input field.</li>
+              <li>Select <code class="font-mono">utf8mb4_general_ci</code> as the Collation and click <strong>Create</strong>.</li>
+            </ol>
+
+            <!-- Realistic UI Mockup: phpMyAdmin Create Database -->
+            <div id="mockup-pma-db" class="mockup-frame rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-white text-slate-800 shadow-md select-none">
+              <!-- Browser Bar -->
+              <div class="bg-slate-200 px-3 py-1.5 flex items-center gap-2 border-b border-slate-300">
+                <div class="flex gap-1">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                </div>
+                <div class="flex-1 bg-white rounded px-2.5 py-0.5 text-[10px] font-mono text-slate-600 border border-slate-300">
+                  http://localhost/phpmyadmin/index.php?route=/server/databases
+                </div>
+              </div>
+              <!-- phpMyAdmin Top Tabs -->
+              <div class="bg-[#f3f3f3] border-b border-slate-300 px-3 py-1.5 flex items-center gap-3 text-[10px] font-bold text-slate-600">
+                <span class="text-[#3a5795] font-extrabold">php<span class="text-[#f7941d]">MyAdmin</span></span>
+                <span class="bg-white border border-slate-300 px-2 py-0.5 rounded text-brand-700">Databases</span>
+                <span>SQL</span>
+                <span>Status</span>
+                <span>User accounts</span>
+                <span>Export</span>
+              </div>
+              <!-- Content Area -->
+              <div class="grid grid-cols-12 text-[11px]">
+                <!-- Left Sidebar -->
+                <div class="col-span-4 bg-[#f8f9fa] border-r border-slate-300 p-2.5 space-y-1 text-[10px]">
+                  <div class="font-bold text-brand-700 flex items-center gap-1"><i class="fa-solid fa-plus-square"></i> New</div>
+                  <div class="text-slate-500 pl-2">information_schema</div>
+                  <div class="text-slate-500 pl-2">mysql</div>
+                  <div class="text-slate-500 pl-2">performance_schema</div>
+                  <div class="text-slate-500 pl-2">phpmyadmin</div>
+                  <div class="font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">+ student_management_system</div>
+                </div>
+                <!-- Main Form -->
+                <div class="col-span-8 p-3 space-y-2.5">
+                  <div class="font-bold text-xs text-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-database text-brand-600"></i> Create database
+                  </div>
+                  <div class="bg-slate-50 border border-slate-300 rounded-lg p-2.5 space-y-2">
+                    <div class="flex flex-wrap items-center gap-1.5">
+                      <input type="text" readonly value="student_management_system" class="flex-1 min-w-[140px] bg-white border-2 border-brand-500 rounded px-2 py-1 font-mono text-[10px] font-bold text-slate-900" />
+                      <select disabled class="bg-white border border-slate-300 rounded px-1.5 py-1 text-[10px] font-mono text-slate-700">
+                        <option>utf8mb4_general_ci</option>
+                      </select>
+                      <span class="px-2.5 py-1 rounded bg-brand-600 text-white font-bold text-[10px] shadow">Create</span>
+                    </div>
+                  </div>
+                  <div class="bg-emerald-50 border border-emerald-300 text-emerald-800 rounded px-2.5 py-1.5 text-[10px] font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                    <span>Database <code class="font-mono font-bold">student_management_system</code> has been created.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VISUAL STEP A3: Table Structure Designer -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-extrabold text-xs flex items-center justify-center">A3</span>
+                <div>
+                  <h3 class="font-bold text-sm text-slate-900 dark:text-white">Design <code class="font-mono">students</code> Table Structure</h3>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">6 columns with <code class="font-mono">PRIMARY KEY</code>, <code class="font-mono">AUTO_INCREMENT</code> &amp; <code class="font-mono">UNIQUE</code></p>
+                </div>
+              </div>
+              <button onclick="openLightbox('mockup-pma-structure', 'Step A3: phpMyAdmin Table Structure — students (6 Columns)')" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition flex items-center gap-1">
+                <i class="fa-solid fa-expand"></i> Zoom
+              </button>
+            </div>
+
+            <p class="text-xs text-slate-600 dark:text-slate-300">
+              Create table <code class="font-mono font-bold">students</code> with <strong>6 columns</strong>, check <strong>A_I</strong> (Auto Increment) on <code class="font-mono">id</code>, set <code class="font-mono">student_number</code> as <strong>UNIQUE</strong>, and click <strong>Save</strong>.
+            </p>
+
+            <!-- Realistic UI Mockup: phpMyAdmin Table Structure -->
+            <div id="mockup-pma-structure" class="mockup-frame rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-white text-slate-800 shadow-md select-none">
+              <div class="bg-[#f3f3f3] border-b border-slate-300 px-3 py-1.5 flex items-center justify-between text-[10px]">
+                <span class="font-bold text-slate-700">Table name: <code class="bg-white border border-slate-300 px-1.5 py-0.5 rounded font-mono text-brand-700">students</code></span>
+                <span class="text-slate-500 font-mono">Engine: InnoDB</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-[10px] border-collapse">
+                  <thead class="bg-slate-100 border-b border-slate-300 font-bold text-slate-700">
+                    <tr>
+                      <th class="py-1.5 px-2">Name</th>
+                      <th class="py-1.5 px-2">Type</th>
+                      <th class="py-1.5 px-2">Length</th>
+                      <th class="py-1.5 px-2">Default</th>
+                      <th class="py-1.5 px-2">Index</th>
+                      <th class="py-1.5 px-2 text-center">A_I</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-200 font-mono">
+                    <tr class="bg-amber-50/70">
+                      <td class="py-1 px-2 font-bold text-slate-900">id</td>
+                      <td class="py-1 px-2 text-blue-700">INT</td>
+                      <td class="py-1 px-2 text-slate-400">11</td>
+                      <td class="py-1 px-2 text-slate-400">None</td>
+                      <td class="py-1 px-2"><span class="bg-amber-200 text-amber-900 px-1 rounded font-sans font-bold">PRIMARY</span></td>
+                      <td class="py-1 px-2 text-center font-sans font-bold text-emerald-700">☑</td>
+                    </tr>
+                    <tr>
+                      <td class="py-1 px-2 font-bold text-slate-900">student_number</td>
+                      <td class="py-1 px-2 text-blue-700">VARCHAR</td>
+                      <td class="py-1 px-2">20</td>
+                      <td class="py-1 px-2 text-slate-400">None</td>
+                      <td class="py-1 px-2"><span class="bg-indigo-100 text-indigo-800 px-1 rounded font-sans font-bold">UNIQUE</span></td>
+                      <td class="py-1 px-2 text-center text-slate-400">☐</td>
+                    </tr>
+                    <tr>
+                      <td class="py-1 px-2 font-bold text-slate-900">first_name</td>
+                      <td class="py-1 px-2 text-blue-700">VARCHAR</td>
+                      <td class="py-1 px-2">50</td>
+                      <td class="py-1 px-2 text-slate-400">None</td>
+                      <td class="py-1 px-2 text-slate-400">---</td>
+                      <td class="py-1 px-2 text-center text-slate-400">☐</td>
+                    </tr>
+                    <tr>
+                      <td class="py-1 px-2 font-bold text-slate-900">last_name</td>
+                      <td class="py-1 px-2 text-blue-700">VARCHAR</td>
+                      <td class="py-1 px-2">50</td>
+                      <td class="py-1 px-2 text-slate-400">None</td>
+                      <td class="py-1 px-2 text-slate-400">---</td>
+                      <td class="py-1 px-2 text-center text-slate-400">☐</td>
+                    </tr>
+                    <tr>
+                      <td class="py-1 px-2 font-bold text-slate-900">email</td>
+                      <td class="py-1 px-2 text-blue-700">VARCHAR</td>
+                      <td class="py-1 px-2">100</td>
+                      <td class="py-1 px-2 text-slate-400">None</td>
+                      <td class="py-1 px-2 text-slate-400">---</td>
+                      <td class="py-1 px-2 text-center text-slate-400">☐</td>
+                    </tr>
+                    <tr>
+                      <td class="py-1 px-2 font-bold text-slate-900">created_at</td>
+                      <td class="py-1 px-2 text-blue-700">TIMESTAMP</td>
+                      <td class="py-1 px-2 text-slate-400">---</td>
+                      <td class="py-1 px-2 text-emerald-700 font-bold">CURRENT_TIMESTAMP</td>
+                      <td class="py-1 px-2 text-slate-400">---</td>
+                      <td class="py-1 px-2 text-center text-slate-400">☐</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="bg-slate-100 border-t border-slate-300 px-3 py-1.5 flex justify-end">
+                <span class="px-3 py-0.5 rounded bg-brand-600 text-white font-bold text-[10px]">Save</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- VISUAL STEP A4: Browse Sample Records -->
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-extrabold text-xs flex items-center justify-center">A4</span>
+                <div>
+                  <h3 class="font-bold text-sm text-slate-900 dark:text-white">Insert &amp; Browse 5 Sample Records</h3>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">Verify rows in phpMyAdmin <strong>Browse</strong> tab (Required Screenshot #1)</p>
+                </div>
+              </div>
+              <button onclick="openLightbox('mockup-pma-browse', 'Step A4: phpMyAdmin Browse View — 5 Inserted Student Records')" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition flex items-center gap-1">
+                <i class="fa-solid fa-expand"></i> Zoom
+              </button>
+            </div>
+
+            <p class="text-xs text-slate-600 dark:text-slate-300">
+              Use the <strong>Insert</strong> tab (or SQL tab) to add at least <strong>5 student records</strong>, then open <strong>Browse</strong> to confirm all rows are stored accurately.
+            </p>
+
+            <!-- Realistic UI Mockup: phpMyAdmin Browse Tab -->
+            <div id="mockup-pma-browse" class="mockup-frame rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-white text-slate-800 shadow-md select-none">
+              <div class="bg-[#f3f3f3] border-b border-slate-300 px-3 py-1.5 flex items-center gap-2.5 text-[10px] font-bold text-slate-600">
+                <span class="bg-white border border-slate-300 px-2 py-0.5 rounded text-brand-700"><i class="fa-solid fa-table mr-1"></i>Browse</span>
+                <span>Structure</span>
+                <span>SQL</span>
+                <span>Search</span>
+                <span>Insert</span>
+                <span class="ml-auto text-emerald-700 font-mono">Showing rows 0 - 4 (5 total)</span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-[10px] border-collapse">
+                  <thead class="bg-slate-100 border-b border-slate-300 font-bold text-slate-700">
+                    <tr>
+                      <th class="py-1.5 px-2">id</th>
+                      <th class="py-1.5 px-2">student_number</th>
+                      <th class="py-1.5 px-2">first_name</th>
+                      <th class="py-1.5 px-2">last_name</th>
+                      <th class="py-1.5 px-2">email</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-200 font-mono text-[10px]">
+                    <tr class="bg-white">
+                      <td class="py-1 px-2 font-bold text-brand-700">1</td>
+                      <td class="py-1 px-2">2026-0001</td>
+                      <td class="py-1 px-2">Juan</td>
+                      <td class="py-1 px-2">Dela Cruz</td>
+                      <td class="py-1 px-2 text-slate-600">juan.delacruz@example.edu</td>
+                    </tr>
+                    <tr class="bg-slate-50">
+                      <td class="py-1 px-2 font-bold text-brand-700">2</td>
+                      <td class="py-1 px-2">2026-0002</td>
+                      <td class="py-1 px-2">Maria</td>
+                      <td class="py-1 px-2">Santos</td>
+                      <td class="py-1 px-2 text-slate-600">maria.santos@example.edu</td>
+                    </tr>
+                    <tr class="bg-white">
+                      <td class="py-1 px-2 font-bold text-brand-700">3</td>
+                      <td class="py-1 px-2">2026-0003</td>
+                      <td class="py-1 px-2">Carlos</td>
+                      <td class="py-1 px-2">Reyes</td>
+                      <td class="py-1 px-2 text-slate-600">carlos.reyes@example.edu</td>
+                    </tr>
+                    <tr class="bg-slate-50">
+                      <td class="py-1 px-2 font-bold text-brand-700">4</td>
+                      <td class="py-1 px-2">2026-0004</td>
+                      <td class="py-1 px-2">Angela</td>
+                      <td class="py-1 px-2">Mendoza</td>
+                      <td class="py-1 px-2 text-slate-600">angela.mendoza@example.edu</td>
+                    </tr>
+                    <tr class="bg-white">
+                      <td class="py-1 px-2 font-bold text-brand-700">5</td>
+                      <td class="py-1 px-2">2026-0005</td>
+                      <td class="py-1 px-2">Rafael</td>
+                      <td class="py-1 px-2">Villanueva</td>
+                      <td class="py-1 px-2 text-slate-600">rafael.v@example.edu</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- OPTION B: MySQL Server & MySQL Workbench WITH VISUAL UI MOCKUPS   -->
+      <!-- ================================================================= -->
+      <div id="contentOptionB" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Step B1: MySQL Installer Configuration Mockup -->
+          <div class="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-sky-500/15 text-sky-600 dark:text-sky-400 font-extrabold text-xs flex items-center justify-center">B1</span>
+                <div>
+                  <h3 class="font-bold text-sm text-slate-900 dark:text-white">MySQL Installer &amp; Server Config</h3>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">Configure TCP/IP Port <code class="font-mono">3306</code> &amp; Root Account</p>
+                </div>
+              </div>
+              <button onclick="openLightbox('mockup-mysql-installer', 'Step B1: MySQL Installer Configuration (Port 3306 & Root Password)')" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition flex items-center gap-1">
+                <i class="fa-solid fa-expand"></i> Zoom
+              </button>
+            </div>
+
+            <ol class="list-decimal list-inside space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
+              <li>Download <strong>MySQL Installer</strong> from <a href="https://dev.mysql.com/downloads/" target="_blank" rel="noopener" class="text-brand-600 dark:text-brand-400 underline font-semibold">dev.mysql.com</a> and select <strong>MySQL Server</strong> + <strong>MySQL Workbench</strong>.</li>
+              <li>Keep default <strong>TCP/IP Port 3306</strong> and set a strong <code class="font-mono">root</code> password.</li>
+              <li>Launch <strong>MySQL Workbench</strong> and connect to <code class="font-mono">Local instance MySQL80</code>.</li>
+            </ol>
+
+            <!-- Realistic UI Mockup: MySQL Installer -->
+            <div id="mockup-mysql-installer" class="mockup-frame rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-slate-100 text-slate-800 shadow-md select-none">
+              <div class="bg-[#00618a] text-white px-3 py-1.5 flex items-center justify-between text-[11px] font-bold">
+                <span><i class="fa-solid fa-dolphin mr-1.5"></i>MySQL Installer — Product Configuration</span>
+                <span class="text-[10px] bg-white/20 px-1.5 rounded">MySQL Server 8.0</span>
+              </div>
+              <div class="p-3 space-y-2.5 text-[11px]">
+                <div class="bg-white border border-slate-300 rounded p-2.5 space-y-2">
+                  <div class="font-bold text-slate-700 border-b border-slate-200 pb-1">Type and Networking</div>
+                  <div class="grid grid-cols-2 gap-2 text-[10px]">
+                    <div>
+                      <span class="text-slate-500 block">Config Type:</span>
+                      <span class="font-bold text-slate-800">Development Computer</span>
+                    </div>
+                    <div>
+                      <span class="text-slate-500 block">TCP/IP Port:</span>
+                      <span class="font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-300 px-1.5 py-0.5 rounded inline-block">3306 ✓</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-white border border-slate-300 rounded p-2.5 space-y-1.5">
+                  <div class="font-bold text-slate-700 border-b border-slate-200 pb-1">Accounts and Roles</div>
+                  <div class="flex items-center justify-between text-[10px]">
+                    <span class="text-slate-600">MySQL Root Password:</span>
+                    <span class="font-mono bg-slate-100 border border-slate-300 px-2 py-0.5 rounded">••••••••••••</span>
+                  </div>
+                  <div class="text-[10px] text-emerald-700 font-semibold"><i class="fa-solid fa-check-circle mr-1"></i>Windows Service: MySQL80 (Running)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step B2: MySQL Workbench SQL Editor + Result Grid Mockup -->
+          <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-lg bg-brand-500/15 text-brand-600 dark:text-brand-400 font-extrabold text-xs flex items-center justify-center">B2</span>
+                <div>
+                  <h3 class="font-bold text-sm text-slate-900 dark:text-white">MySQL Workbench Query Execution &amp; Result Grid</h3>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">Execute <code class="font-mono">CREATE DATABASE</code>, <code class="font-mono">CREATE TABLE</code>, <code class="font-mono">INSERT INTO</code> &amp; inspect Result Grid</p>
+                </div>
+              </div>
+              <button onclick="openLightbox('mockup-workbench', 'Step B2: MySQL Workbench SQL Editor & Result Grid Output')" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition flex items-center gap-1">
+                <i class="fa-solid fa-expand"></i> Zoom
+              </button>
+            </div>
+
+            <!-- Realistic UI Mockup: MySQL Workbench -->
+            <div id="mockup-workbench" class="mockup-frame rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-[#1e2430] text-slate-200 shadow-md select-none">
+              <!-- Workbench Top Toolbar -->
+              <div class="bg-[#2b3240] border-b border-slate-700 px-3 py-1.5 flex items-center justify-between text-[10px]">
+                <div class="flex items-center gap-2">
+                  <span class="font-bold text-sky-400"><i class="fa-solid fa-database mr-1"></i>Local instance MySQL80</span>
+                  <span class="bg-[#1e2430] px-2 py-0.5 rounded text-slate-300 font-mono">Query 1 *</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded bg-amber-500/20 border border-amber-400/40 text-amber-300 font-bold"><i class="fa-solid fa-bolt mr-1"></i>Execute (Ctrl+Shift+Enter)</span>
+                </div>
+              </div>
+              <!-- Split Schemas + SQL Editor -->
+              <div class="grid grid-cols-12 border-b border-slate-700">
+                <!-- Schemas Tree -->
+                <div class="col-span-4 bg-[#232936] border-r border-slate-700 p-2.5 text-[10px] font-mono space-y-1">
+                  <div class="text-slate-400 font-sans font-bold uppercase text-[9px]">Schemas</div>
+                  <div class="text-emerald-400 font-bold"><i class="fa-solid fa-database mr-1"></i>student_management_system</div>
+                  <div class="pl-3 text-sky-300"><i class="fa-solid fa-table mr-1"></i>Tables</div>
+                  <div class="pl-6 text-white bg-brand-600/30 rounded px-1">students</div>
+                  <div class="pl-8 text-slate-400 text-[9px]">• id (PK, AI)</div>
+                  <div class="pl-8 text-slate-400 text-[9px]">• student_number</div>
+                  <div class="pl-8 text-slate-400 text-[9px]">• first_name, last_name</div>
+                </div>
+                <!-- SQL Code Window -->
+                <div class="col-span-8 p-2.5 font-mono text-[10px] leading-relaxed bg-[#181d27]">
+                  <div><span class="text-sky-400 font-bold">CREATE DATABASE</span> student_management_system;</div>
+                  <div><span class="text-sky-400 font-bold">USE</span> student_management_system;</div>
+                  <div><span class="text-sky-400 font-bold">CREATE TABLE</span> students (id <span class="text-amber-300">INT PRIMARY KEY AUTO_INCREMENT</span>, ...);</div>
+                  <div><span class="text-sky-400 font-bold">INSERT INTO</span> students (student_number, first_name, last_name, email) <span class="text-sky-400 font-bold">VALUES</span> (...);</div>
+                  <div><span class="text-emerald-400 font-bold">SELECT * FROM</span> students;</div>
+                </div>
+              </div>
+              <!-- Result Grid -->
+              <div class="bg-[#232936] p-2">
+                <div class="text-[9px] font-bold uppercase text-emerald-400 mb-1 flex justify-between">
+                  <span>Result Grid — SELECT * FROM students</span>
+                  <span>5 row(s) returned</span>
+                </div>
+                <div class="overflow-x-auto bg-white text-slate-800 rounded">
+                  <table class="w-full text-left text-[10px] font-mono">
+                    <thead class="bg-slate-200 font-bold border-b border-slate-300">
+                      <tr>
+                        <th class="px-2 py-1">id</th>
+                        <th class="px-2 py-1">student_number</th>
+                        <th class="px-2 py-1">first_name</th>
+                        <th class="px-2 py-1">last_name</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                      <tr><td class="px-2 py-0.5">1</td><td class="px-2 py-0.5">2026-0001</td><td class="px-2 py-0.5">Juan</td><td class="px-2 py-0.5">Dela Cruz</td></tr>
+                      <tr><td class="px-2 py-0.5">2</td><td class="px-2 py-0.5">2026-0002</td><td class="px-2 py-0.5">Maria</td><td class="px-2 py-0.5">Santos</td></tr>
+                      <tr><td class="px-2 py-0.5">3</td><td class="px-2 py-0.5">2026-0003</td><td class="px-2 py-0.5">Carlos</td><td class="px-2 py-0.5">Reyes</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shared Complete SQL Script Card (Always Accessible Below Option A / B) -->
+      <div class="bg-[#0b1120] text-slate-100 border border-slate-800 rounded-2xl overflow-hidden shadow-lg">
+        <div class="px-4 py-3 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-mono text-slate-400 ml-2">schema_and_seed.sql (Database, Table &amp; 5 Sample Records)</span>
+          </div>
+          <button onclick="copyCode('sqlSetupCode', this)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+            <i class="fa-regular fa-copy"></i> <span>Copy SQL</span>
+          </button>
+        </div>
+        <pre id="sqlSetupCode" class="p-4 text-xs font-mono text-emerald-400 overflow-x-auto leading-relaxed">CREATE DATABASE IF NOT EXISTS student_management_system
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+USE student_management_system;
+
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_number VARCHAR(20) NOT NULL UNIQUE,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO students (student_number, first_name, last_name, email) VALUES
+('2026-0001', 'Juan', 'Dela Cruz', 'juan.delacruz@example.edu'),
+('2026-0002', 'Maria', 'Santos', 'maria.santos@example.edu'),
+('2026-0003', 'Carlos', 'Reyes', 'carlos.reyes@example.edu'),
+('2026-0004', 'Angela', 'Mendoza', 'angela.mendoza@example.edu'),
+('2026-0005', 'Rafael', 'Villanueva', 'rafael.villanueva@example.edu');</pre>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- PART 2: DATABASE CONNECTIVITY & INTERACTIVE SQL OPERATORS VISUAL LAB  -->
+    <!-- ===================================================================== -->
+    <section id="part2" class="scroll-mt-24 space-y-8">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-xs font-extrabold uppercase tracking-wider text-brand-600 dark:text-brand-400">Part 2 — Visual Guide &amp; Interactive Lab</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Database Connectivity &amp; SQL Operators Application</h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+          Build your project folder inside <code class="font-mono">htdocs/student_system/</code>, verify PHP PDO connectivity, and practice applying SQL operators &amp; CRUD statements.
+        </p>
+      </div>
+
+      <!-- Visual Walkthrough Row: VS Code Folder Tree + Browser Output Preview -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Visual Mockup 1: VS Code Workspace & PDO Connection Test -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-lg bg-sky-500/15 text-sky-600 dark:text-sky-400 font-extrabold text-xs flex items-center justify-center"><i class="fa-solid fa-code"></i></span>
+              <div>
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white">VS Code Structure &amp; PDO Connection</h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400">Save in <code class="font-mono">C:\xampp\htdocs\student_system\</code></p>
+              </div>
+            </div>
+            <button onclick="openLightbox('mockup-vscode-pdo', 'Part 2A: VS Code Project Directory & PDO Connection Verification')" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition flex items-center gap-1">
+              <i class="fa-solid fa-expand"></i> Zoom
+            </button>
+          </div>
+
+          <div id="mockup-vscode-pdo" class="mockup-frame rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-[#1e1e1e] text-slate-200 shadow-md select-none">
+            <div class="bg-[#323233] px-3 py-1.5 flex items-center justify-between text-[10px]">
+              <span class="font-semibold text-slate-300"><i class="fa-solid fa-folder-open text-amber-400 mr-1.5"></i>student_system — Visual Studio Code</span>
+              <span class="text-sky-400 font-mono">PHP 8.2</span>
+            </div>
+            <div class="grid grid-cols-12 text-[10px]">
+              <!-- Explorer Sidebar -->
+              <div class="col-span-5 bg-[#252526] border-r border-slate-700 p-2.5 font-mono space-y-1">
+                <div class="text-[9px] font-sans font-bold uppercase text-slate-400">Explorer</div>
+                <div class="text-amber-300 font-bold"><i class="fa-solid fa-chevron-down mr-1 text-[8px]"></i>student_system</div>
+                <div class="pl-3 text-sky-300 bg-[#37373d] rounded px-1 py-0.5"><i class="fa-brands fa-php mr-1 text-indigo-400"></i>db.php</div>
+                <div class="pl-3 text-slate-300"><i class="fa-brands fa-php mr-1 text-indigo-400"></i>test_connection.php</div>
+                <div class="pl-3 text-slate-300"><i class="fa-brands fa-php mr-1 text-indigo-400"></i>students.php</div>
+                <div class="pl-3 text-emerald-400"><i class="fa-solid fa-database mr-1"></i>database.sql</div>
+              </div>
+              <!-- Code + Browser Result -->
+              <div class="col-span-7 p-2.5 space-y-2 bg-[#1e1e1e]">
+                <div class="font-mono text-[10px] leading-relaxed text-slate-300">
+                  <div><span class="text-sky-400">$dsn</span> = <span class="text-amber-300">"mysql:host=localhost;dbname=student_management_system"</span>;</div>
+                  <div><span class="text-sky-400">$pdo</span> = <span class="text-purple-400">new</span> <span class="text-emerald-300">PDO</span>($dsn, <span class="text-amber-300">'root'</span>, <span class="text-amber-300">''</span>);</div>
+                </div>
+                <div class="bg-white text-slate-800 rounded p-2 border border-slate-400">
+                  <div class="text-[9px] font-mono text-slate-500 border-b border-slate-200 pb-0.5 mb-1">http://localhost/student_system/test_connection.php</div>
+                  <div class="text-[11px] font-bold text-emerald-700 flex items-center gap-1">
+                    <i class="fa-solid fa-circle-check"></i> Database connected successfully!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Mockup 2: Browser Preview of students.php -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+              <span class="w-7 h-7 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-extrabold text-xs flex items-center justify-center"><i class="fa-solid fa-globe"></i></span>
+              <div>
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white">Live Browser Output (<code class="font-mono">students.php</code>)</h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400">Required Screenshot #2 &amp; #3 (Local &amp; Live Hostinger Output)</p>
+              </div>
+            </div>
+            <button onclick="openLightbox('mockup-students-browser', 'Part 2B: Browser Output — students.php Displaying Records from MySQL')" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition flex items-center gap-1">
+              <i class="fa-solid fa-expand"></i> Zoom
+            </button>
+          </div>
+
+          <div id="mockup-students-browser" class="mockup-frame rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-white text-slate-800 shadow-md select-none">
+            <div class="bg-slate-200 px-3 py-1.5 flex items-center gap-2 border-b border-slate-300">
+              <div class="flex gap-1">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              </div>
+              <div class="flex-1 bg-white rounded px-2.5 py-0.5 text-[10px] font-mono text-slate-700 border border-slate-300 flex items-center justify-between">
+                <span>http://localhost/student_system/students.php</span>
+                <span class="text-emerald-600 font-bold text-[9px]">200 OK</span>
+              </div>
+            </div>
+            <div class="p-3 space-y-2">
+              <div class="flex items-center justify-between">
+                <h4 class="font-extrabold text-xs text-slate-900">Registered Students</h4>
+                <span class="text-[9px] bg-indigo-50 text-indigo-700 border border-indigo-200 px-2 py-0.5 rounded font-bold">PDO Fetch: 5 Records</span>
+              </div>
+              <table class="w-full text-left text-[10px] border border-slate-300">
+                <thead class="bg-slate-100 font-bold text-slate-700 border-b border-slate-300">
+                  <tr>
+                    <th class="px-2 py-1 border-r border-slate-300">ID</th>
+                    <th class="px-2 py-1 border-r border-slate-300">Student Number</th>
+                    <th class="px-2 py-1 border-r border-slate-300">Full Name</th>
+                    <th class="px-2 py-1">Email</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                  <tr><td class="px-2 py-1 border-r border-slate-200">1</td><td class="px-2 py-1 border-r border-slate-200 font-mono">2026-0001</td><td class="px-2 py-1 border-r border-slate-200">Juan Dela Cruz</td><td class="px-2 py-1 text-slate-600">juan.delacruz@example.edu</td></tr>
+                  <tr class="bg-slate-50"><td class="px-2 py-1 border-r border-slate-200">2</td><td class="px-2 py-1 border-r border-slate-200 font-mono">2026-0002</td><td class="px-2 py-1 border-r border-slate-200">Maria Santos</td><td class="px-2 py-1 text-slate-600">maria.santos@example.edu</td></tr>
+                  <tr><td class="px-2 py-1 border-r border-slate-200">3</td><td class="px-2 py-1 border-r border-slate-200 font-mono">2026-0003</td><td class="px-2 py-1 border-r border-slate-200">Carlos Reyes</td><td class="px-2 py-1 text-slate-600">carlos.reyes@example.edu</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHP Code Viewer (db.php, test_connection.php, students.php) -->
+      <div class="bg-[#0b1120] text-slate-100 border border-slate-800 rounded-2xl overflow-hidden shadow-lg">
+        <div class="px-4 py-2.5 bg-slate-900/95 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-1.5 text-xs font-mono">
+            <button id="phpTabDb" onclick="switchPhpTab('db')" class="px-3 py-1.5 rounded-lg bg-brand-600 text-white font-bold transition">db.php</button>
+            <button id="phpTabTest" onclick="switchPhpTab('test')" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">test_connection.php</button>
+            <button id="phpTabView" onclick="switchPhpTab('view')" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">students.php</button>
+          </div>
+          <button onclick="copyActivePhpCode(this)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+            <i class="fa-regular fa-copy"></i> <span>Copy File</span>
+          </button>
+        </div>
+
+        <pre id="codeBlockDb" class="p-4 text-xs font-mono text-sky-300 overflow-x-auto leading-relaxed">&lt;?php
+// db.php — Database Connection Using PDO
+$host     = 'localhost';
+$dbname   = 'student_management_system';
+$username = 'root';
+$password = ''; // Default XAMPP password is empty
+
+try {
+    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+    $pdo = new PDO($dsn, $username, $password, [
+        PDO::ATTR_ERRMODE            =&gt; PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES   =&gt; false,
+    ]);
+} catch (PDOException $e) {
+    die("Database connection failed: " . htmlspecialchars($e-&gt;getMessage()));
+}
+?&gt;</pre>
+
+        <pre id="codeBlockTest" class="hidden p-4 text-xs font-mono text-emerald-300 overflow-x-auto leading-relaxed">&lt;?php
+// test_connection.php — Verify Successful Database Connection
+require_once 'db.php';
+
+echo "&lt;h2 style='font-family: sans-serif; color: #16a34a;'&gt;Database connected successfully!&lt;/h2&gt;";
+?&gt;</pre>
+
+        <pre id="codeBlockView" class="hidden p-4 text-xs font-mono text-amber-200 overflow-x-auto leading-relaxed">&lt;?php
+// students.php — Retrieve and Display Records Using SQL Operators
+require_once 'db.php';
+
+// Example applying ORDER BY operator to sort student records
+$stmt = $pdo-&gt;query("SELECT id, student_number, first_name, last_name, email, created_at FROM students ORDER BY id ASC");
+$students = $stmt-&gt;fetchAll();
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Student Records&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #cbd5e1; padding: 10px; text-align: left; }
+        th { background-color: #f1f5f9; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h2&gt;Registered Students&lt;/h2&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;ID&lt;/th&gt;
+                &lt;th&gt;Student Number&lt;/th&gt;
+                &lt;th&gt;Full Name&lt;/th&gt;
+                &lt;th&gt;Email&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;?php foreach ($students as $row): ?&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;?= htmlspecialchars($row['id']) ?&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;?= htmlspecialchars($row['student_number']) ?&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;?= htmlspecialchars($row['first_name'] . ' ' . $row['last_name']) ?&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;?= htmlspecialchars($row['email']) ?&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;?php endforeach; ?&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- INTERACTIVE SQL OPERATORS & CRUD VISUAL EXPLORER                  -->
+      <!-- ================================================================= -->
+      <div id="operator-playground" class="bg-white dark:bg-slate-900 border-2 border-brand-500/30 rounded-2xl p-6 shadow-xl space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+          <div>
+            <span class="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-brand-500/15 text-brand-600 dark:text-brand-300 mb-1">
+              <i class="fa-solid fa-flask"></i> Interactive Visual Lab
+            </span>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white">Applying SQL Operators &amp; CRUD Operations</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+              Click any SQL operator preset below to see how comparison (<code class="font-mono">=</code>, <code class="font-mono">&gt;</code>, <code class="font-mono">&lt;</code>, <code class="font-mono">&gt;=</code>, <code class="font-mono">&lt;=</code>, <code class="font-mono">!=</code>), pattern (<code class="font-mono">LIKE</code>), logical (<code class="font-mono">AND</code>, <code class="font-mono">OR</code>), sorting (<code class="font-mono">ORDER BY</code>), and CRUD (<code class="font-mono">INSERT</code>, <code class="font-mono">UPDATE</code>, <code class="font-mono">DELETE</code>) operators transform the <code class="font-mono">students</code> table in real time.
+            </p>
+          </div>
+          <button onclick="resetOperatorDataset()" class="self-start md:self-center px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate-left"></i> Reset Dataset
+          </button>
+        </div>
+
+        <!-- Operator Category Filter Buttons -->
+        <div class="space-y-3">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">1. Select an SQL Operator or CRUD Action to Visualize:</div>
+          <div class="flex flex-wrap gap-2" id="operatorPresetButtons">
+            <button onclick="applyOperatorPreset('ALL')" data-preset="ALL" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-brand-600 text-white shadow">SELECT * (All Rows)</button>
+            <button onclick="applyOperatorPreset('EQ')" data-preset="EQ" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-500/20">= (Equal)</button>
+            <button onclick="applyOperatorPreset('GT')" data-preset="GT" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-500/20">&gt; (Greater Than)</button>
+            <button onclick="applyOperatorPreset('LTE')" data-preset="LTE" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-500/20">&lt;= (Less or Equal)</button>
+            <button onclick="applyOperatorPreset('NEQ')" data-preset="NEQ" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-500/20">!= (Not Equal)</button>
+            <button onclick="applyOperatorPreset('LIKE')" data-preset="LIKE" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-500/20">LIKE '%a%'</button>
+            <button onclick="applyOperatorPreset('AND_OR')" data-preset="AND_OR" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-500/20">AND / OR</button>
+            <button onclick="applyOperatorPreset('ORDER_DESC')" data-preset="ORDER_DESC" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-500/20">ORDER BY DESC</button>
+            <button onclick="applyOperatorPreset('INSERT')" data-preset="INSERT" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-emerald-600/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 hover:bg-emerald-600/25">+ INSERT Record</button>
+            <button onclick="applyOperatorPreset('UPDATE')" data-preset="UPDATE" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-amber-600/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 hover:bg-amber-600/25">✎ UPDATE Record</button>
+            <button onclick="applyOperatorPreset('DELETE')" data-preset="DELETE" class="op-btn px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-rose-600/15 text-rose-700 dark:text-rose-300 border border-rose-500/30 hover:bg-rose-600/25">✕ DELETE Record</button>
+          </div>
+        </div>
+
+        <!-- Visual Query Breakdown + Live Result Table -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+          <!-- Left: Generated SQL Query & Visual Operator Explanation -->
+          <div class="lg:col-span-5 space-y-3">
+            <div class="bg-[#0b1120] border border-slate-800 rounded-xl p-4 space-y-2">
+              <div class="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                <span>Executed SQL Statement</span>
+                <button onclick="copyCode('activeOperatorSql', this)" class="text-brand-400 hover:underline font-sans">Copy Query</button>
+              </div>
+              <pre id="activeOperatorSql" class="text-xs font-mono text-emerald-400 whitespace-pre-wrap leading-relaxed">SELECT * FROM students;</pre>
+            </div>
+
+            <div class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-4 space-y-1.5 text-xs">
+              <div class="font-bold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-info"></i>
+                <span id="operatorConceptTitle">How SELECT * Works</span>
+              </div>
+              <p id="operatorConceptDesc" class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                Retrieves all columns and all rows from the <code class="font-mono">students</code> table without filtering conditions.
+              </p>
+            </div>
+          </div>
+
+          <!-- Right: Live Visual Database Table Output -->
+          <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+            <div class="px-4 py-2.5 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-700 dark:text-slate-200"><i class="fa-solid fa-table text-brand-500 mr-1.5"></i>Live Result Set (<code class="font-mono">students</code>)</span>
+              <span id="operatorRowCountBadge" class="font-mono text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">5 rows returned</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs whitespace-nowrap">
+                <thead class="bg-slate-100/70 dark:bg-slate-900/60 text-slate-500 dark:text-slate-400 uppercase font-bold text-[10px] border-b border-slate-200 dark:border-slate-800">
+                  <tr>
+                    <th class="py-2.5 px-3">id</th>
+                    <th class="py-2.5 px-3">student_number</th>
+                    <th class="py-2.5 px-3">first_name</th>
+                    <th class="py-2.5 px-3">last_name</th>
+                    <th class="py-2.5 px-3">email</th>
+                    <th class="py-2.5 px-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="operatorResultTableBody" class="divide-y divide-slate-200 dark:divide-slate-800 font-mono text-[11px]">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- PART 3: HOSTING AND DEPLOYMENT USING HOSTINGER (WITH VISUAL MOCKUPS)  -->
+    <!-- ===================================================================== -->
+    <section id="part3" class="scroll-mt-24 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-brand-600 dark:text-brand-400">Part 3 — Cloud Deployment</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Hosting and Deployment Using Hostinger</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+            Follow the 8 steps below and inspect the Hostinger hPanel visual guides to deploy your PHP &amp; MySQL application online.
+          </p>
+        </div>
+
+        <!-- Local vs Production Config Toggle -->
+        <div class="inline-flex p-1 rounded-xl bg-slate-200/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 self-start">
+          <button id="btnEnvLocal" onclick="switchEnvConfig('local')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-brand-600 text-slate-900 dark:text-white shadow transition">
+            Local XAMPP Config
+          </button>
+          <button id="btnEnvProd" onclick="switchEnvConfig('prod')" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">
+            Hostinger Live Config
+          </button>
+        </div>
+      </div>
+
+      <!-- Visual Mockups for Hostinger hPanel (Database + File Manager) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Hostinger Mockup 1: MySQL Databases Wizard -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sm text-slate-900 dark:text-white"><i class="fa-solid fa-cloud text-purple-500 mr-1.5"></i>Hostinger hPanel — MySQL Databases</h3>
+            <button onclick="openLightbox('mockup-hostinger-db', 'Hostinger hPanel — Create MySQL Database & User (Screenshot #4)')" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition flex items-center gap-1">
+              <i class="fa-solid fa-expand"></i> Zoom
+            </button>
+          </div>
+          <div id="mockup-hostinger-db" class="mockup-frame rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-white text-slate-800 shadow-md select-none">
+            <div class="bg-[#673de6] text-white px-3 py-1.5 flex items-center justify-between text-[11px] font-bold">
+              <span>hPanel — Databases &gt; Management</span>
+              <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded">MySQL Host: localhost</span>
+            </div>
+            <div class="p-3 space-y-2 text-[10px]">
+              <div class="font-bold text-slate-700">Create a New MySQL Database and Database User</div>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="bg-slate-50 border border-slate-300 rounded p-1.5">
+                  <span class="text-[9px] text-slate-500 block">MySQL Database Name</span>
+                  <span class="font-mono font-bold text-purple-700">u123456789_sms</span>
+                </div>
+                <div class="bg-slate-50 border border-slate-300 rounded p-1.5">
+                  <span class="text-[9px] text-slate-500 block">MySQL Username</span>
+                  <span class="font-mono font-bold text-purple-700">u123456789_admin</span>
+                </div>
+                <div class="bg-slate-50 border border-slate-300 rounded p-1.5">
+                  <span class="text-[9px] text-slate-500 block">Password</span>
+                  <span class="font-mono font-bold text-slate-700">••••••••••••</span>
+                </div>
+              </div>
+              <div class="bg-purple-50 border border-purple-200 rounded px-2.5 py-1.5 flex items-center justify-between">
+                <span class="font-semibold text-purple-900">List of Current MySQL Databases: <code class="font-mono">u123456789_sms</code></span>
+                <span class="px-2 py-0.5 rounded bg-[#673de6] text-white font-bold">Enter phpMyAdmin</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hostinger Mockup 2: File Manager public_html -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sm text-slate-900 dark:text-white"><i class="fa-solid fa-folder-tree text-purple-500 mr-1.5"></i>Hostinger File Manager — <code class="font-mono">public_html/</code></h3>
+            <button onclick="openLightbox('mockup-hostinger-files', 'Hostinger File Manager — Uploaded PHP Files inside public_html (Screenshot #5)')" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition flex items-center gap-1">
+              <i class="fa-solid fa-expand"></i> Zoom
+            </button>
+          </div>
+          <div id="mockup-hostinger-files" class="mockup-frame rounded-xl overflow-hidden border border-slate-300 dark:border-slate-700 bg-white text-slate-800 shadow-md select-none">
+            <div class="bg-[#2f1c6a] text-white px-3 py-1.5 flex items-center justify-between text-[11px] font-bold">
+              <span>File Manager — /domains/yourdomain.com/public_html</span>
+              <span class="text-[10px] bg-emerald-500 text-white px-2 py-0.5 rounded">SSL Active (HTTPS)</span>
+            </div>
+            <div class="p-3 space-y-1.5 text-[10px] font-mono">
+              <div class="flex items-center justify-between bg-slate-100 px-2 py-1 rounded font-bold text-slate-600">
+                <span>Name</span>
+                <span>Permissions / Size</span>
+              </div>
+              <div class="flex items-center justify-between px-2 py-1 border-b border-slate-200">
+                <span class="text-purple-700 font-bold"><i class="fa-brands fa-php mr-1.5"></i>db.php</span>
+                <span class="text-slate-500">0644 • 512 B</span>
+              </div>
+              <div class="flex items-center justify-between px-2 py-1 border-b border-slate-200">
+                <span class="text-purple-700 font-bold"><i class="fa-brands fa-php mr-1.5"></i>test_connection.php</span>
+                <span class="text-slate-500">0644 • 240 B</span>
+              </div>
+              <div class="flex items-center justify-between px-2 py-1">
+                <span class="text-purple-700 font-bold"><i class="fa-brands fa-php mr-1.5"></i>students.php</span>
+                <span class="text-slate-500">0644 • 1.4 KB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8-Step Deployment Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-extrabold">Step 1</span>
+          <h4 class="font-bold text-sm text-slate-900 dark:text-white">Access Hostinger Account</h4>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Log in to <a href="https://www.hostinger.com" target="_blank" rel="noopener" class="text-brand-600 dark:text-brand-400 underline font-semibold">hostinger.com</a> (use your student hosting plan or domain) and open <strong>hPanel</strong>.</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-extrabold">Step 2</span>
+          <h4 class="font-bold text-sm text-slate-900 dark:text-white">Create Online MySQL DB</h4>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Go to <strong>Databases → Management</strong>. Create a database, username, and strong password. Record all credentials carefully.</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-extrabold">Step 3</span>
+          <h4 class="font-bold text-sm text-slate-900 dark:text-white">Export Local Database</h4>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Open local phpMyAdmin, select <code class="font-mono">student_management_system</code>, click <strong>Export → Quick → SQL</strong>, and download <code class="font-mono">.sql</code>.</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-extrabold">Step 4</span>
+          <h4 class="font-bold text-sm text-slate-900 dark:text-white">Import to Hostinger</h4>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">In Hostinger <strong>phpMyAdmin</strong>, select your new database, click <strong>Import</strong>, upload your <code class="font-mono">.sql</code> file, and execute.</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-extrabold">Step 5</span>
+          <h4 class="font-bold text-sm text-slate-900 dark:text-white">Upload Files to public_html</h4>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Open <strong>Files → File Manager</strong>, navigate into <code class="font-mono">public_html/</code>, and upload your PHP project files.</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-extrabold">Step 6</span>
+          <h4 class="font-bold text-sm text-slate-900 dark:text-white">Update <code class="font-mono">db.php</code> Credentials</h4>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Edit <code class="font-mono">db.php</code> on Hostinger to use your live Hostinger database name, username, and password.</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 font-extrabold">Step 7</span>
+          <h4 class="font-bold text-sm text-slate-900 dark:text-white">Test Live Website</h4>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Visit <code class="font-mono">https://yourdomain.com/students.php</code> and verify records load cleanly with zero PHP warnings.</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-extrabold">Step 8</span>
+          <h4 class="font-bold text-sm text-slate-900 dark:text-white">Enable SSL / HTTPS</h4>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">In hPanel <strong>Security → SSL</strong>, verify your SSL certificate is active so your URL loads securely over <code class="font-mono">https://</code>.</p>
+        </div>
+      </div>
+
+      <!-- Environment Config Code Comparison -->
+      <div class="bg-[#0b1120] text-slate-100 border border-slate-800 rounded-2xl overflow-hidden shadow-lg">
+        <div class="px-4 py-3 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+          <span id="envCodeLabel" class="text-xs font-mono text-amber-300 font-semibold">db.php — Local XAMPP Development Credentials</span>
+          <button onclick="copyCode('envConfigCode', this)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+            <i class="fa-regular fa-copy"></i> <span>Copy Config</span>
+          </button>
+        </div>
+        <pre id="envConfigCode" class="p-4 text-xs font-mono text-sky-300 overflow-x-auto leading-relaxed">&lt;?php
+// Local XAMPP Environment
+$host     = 'localhost';
+$dbname   = 'student_management_system';
+$username = 'root';
+$password = '';
+?&gt;</pre>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- PART 4: SUBMISSION REQUIREMENTS, TRACKER & FILE GENERATOR             -->
+    <!-- ===================================================================== -->
+    <section id="part4" class="scroll-mt-24 space-y-8">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+        <span class="text-xs font-extrabold uppercase tracking-wider text-brand-600 dark:text-brand-400">Part 4 — Packaging &amp; Verification</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Submission Requirements</h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+          Submit a single compressed <code class="font-mono font-bold">.zip</code> file named <code class="font-mono font-bold text-brand-600 dark:text-brand-400">LastName_FirstName_FinalProject.zip</code> containing all 4 required components below.
+        </p>
+      </div>
+
+      <!-- Deliverables Summary Table -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-100 dark:bg-slate-950 text-slate-600 dark:text-slate-400 uppercase font-bold text-[11px] border-b border-slate-200 dark:border-slate-800">
+              <tr>
+                <th class="py-3 px-4">#</th>
+                <th class="py-3 px-4">Deliverable Item</th>
+                <th class="py-3 px-4">Required Filename / Format</th>
+                <th class="py-3 px-4">Contents &amp; Verification Criteria</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+              <tr>
+                <td class="py-3 px-4 font-bold text-brand-600 dark:text-brand-400">1</td>
+                <td class="py-3 px-4 font-bold text-slate-900 dark:text-white">Project Source Files</td>
+                <td class="py-3 px-4 font-mono text-[11px]">/project_files/*.php, *.css, *.js</td>
+                <td class="py-3 px-4 text-slate-600 dark:text-slate-300">Complete PHP, HTML, CSS, and JS files (remove real production passwords before zipping or replace with placeholders).</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-brand-600 dark:text-brand-400">2</td>
+                <td class="py-3 px-4 font-bold text-slate-900 dark:text-white">Database Backup File</td>
+                <td class="py-3 px-4 font-mono text-[11px]">student_management_system.sql</td>
+                <td class="py-3 px-4 text-slate-600 dark:text-slate-300">Exported SQL file containing <code class="font-mono">CREATE TABLE</code> structure and at least 5 sample records.</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-brand-600 dark:text-brand-400">3</td>
+                <td class="py-3 px-4 font-bold text-slate-900 dark:text-white">Screenshots Folder</td>
+                <td class="py-3 px-4 font-mono text-[11px]">/screenshots/01_*.png ... 06_*.png</td>
+                <td class="py-3 px-4 text-slate-600 dark:text-slate-300">6 clear, full-window screenshots proving local setup, live Hostinger setup, and working live URL.</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-brand-600 dark:text-brand-400">4</td>
+                <td class="py-3 px-4 font-bold text-slate-900 dark:text-white">Project Details Text File</td>
+                <td class="py-3 px-4 font-mono text-[11px]">Project_Details.txt</td>
+                <td class="py-3 px-4 text-slate-600 dark:text-slate-300">Plain text file listing Full Name, Section, Live Website URL, Database Name, and Submission Date.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Interactive 14-Item Persistent Tracker + Project_Details.txt Generator -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Left: Interactive Completion Checklist -->
+        <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white">Interactive Submission Checklist</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Your progress is saved automatically in your browser.</p>
+            </div>
+            <button onclick="resetChecklist()" class="text-xs font-semibold text-rose-500 hover:underline">Reset All</button>
+          </div>
+
+          <div id="checklistContainer" class="space-y-2 text-xs">
+            <!-- Populated via JavaScript -->
+          </div>
+        </div>
+
+        <!-- Right: Project_Details.txt Live Generator -->
+        <div class="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white"><code class="font-mono">Project_Details.txt</code> Generator</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Fill in your details to download your formatted text file.</p>
+            </div>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div>
+              <label class="font-bold text-slate-700 dark:text-slate-300 block mb-1">Full Name (Last Name, First Name, M.I.)</label>
+              <input id="inputFullName" type="text" oninput="updateProjectDetailsPreview()" placeholder="Dela Cruz, Juan P." class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-brand-500" />
+            </div>
+            <div>
+              <label class="font-bold text-slate-700 dark:text-slate-300 block mb-1">Course &amp; Section</label>
+              <input id="inputSection" type="text" oninput="updateProjectDetailsPreview()" placeholder="BSIT 3-A — Web Systems and Technology" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-brand-500" />
+            </div>
+            <div>
+              <label class="font-bold text-slate-700 dark:text-slate-300 block mb-1">Live Hostinger Website URL</label>
+              <input id="inputLiveUrl" type="url" oninput="updateProjectDetailsPreview()" placeholder="https://juandelacruz-sms.hostingersite.com/students.php" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-brand-500 font-mono" />
+            </div>
+            <div>
+              <label class="font-bold text-slate-700 dark:text-slate-300 block mb-1">Hostinger MySQL Database Name</label>
+              <input id="inputDbName" type="text" oninput="updateProjectDetailsPreview()" placeholder="u123456789_sms" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-brand-500 font-mono" />
+            </div>
+          </div>
+
+          <div class="bg-slate-950 text-emerald-400 p-3.5 rounded-xl border border-slate-800">
+            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold mb-1">Live File Preview</div>
+            <pre id="projectDetailsPreview" class="text-[11px] font-mono whitespace-pre-wrap leading-relaxed"></pre>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="downloadProjectDetails()" class="flex-1 py-2.5 px-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs shadow-lg shadow-brand-600/20 transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-download"></i>
+              <span>Download Project_Details.txt</span>
+            </button>
+            <button onclick="copyCode('projectDetailsPreview', this)" class="py-2.5 px-3.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs border border-slate-300 dark:border-slate-700 transition">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- PART 5: IMPORTANT REMINDERS                                           -->
+    <!-- ===================================================================== -->
+    <section id="part5" class="scroll-mt-24 space-y-4">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-3">
+        <span class="text-xs font-extrabold uppercase tracking-wider text-amber-600 dark:text-amber-400">Part 5 — Quality &amp; Security</span>
+        <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">Important Reminders</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        <div class="bg-amber-50/70 dark:bg-amber-950/25 border border-amber-300/60 dark:border-amber-500/30 rounded-2xl p-4 space-y-1.5">
+          <div class="font-bold text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-shield-halved"></i> Keep Hosting Active
+          </div>
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Ensure your Hostinger website remains online and accessible until grading is completed.</p>
+        </div>
+
+        <div class="bg-rose-50/70 dark:bg-rose-950/25 border border-rose-300/60 dark:border-rose-500/30 rounded-2xl p-4 space-y-1.5">
+          <div class="font-bold text-rose-700 dark:text-rose-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-key"></i> Protect Credentials
+          </div>
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Never share your Hostinger account password or expose raw database passwords publicly.</p>
+        </div>
+
+        <div class="bg-sky-50/70 dark:bg-sky-950/25 border border-sky-300/60 dark:border-sky-500/30 rounded-2xl p-4 space-y-1.5">
+          <div class="font-bold text-sky-700 dark:text-sky-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-bug-slash"></i> Use Prepared Statements
+          </div>
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Always use PDO prepared statements (<code class="font-mono">prepare()</code> &amp; <code class="font-mono">execute()</code>) for user inputs to prevent SQL injection.</p>
+        </div>
+
+        <div class="bg-emerald-50/70 dark:bg-emerald-950/25 border border-emerald-300/60 dark:border-emerald-500/30 rounded-2xl p-4 space-y-1.5">
+          <div class="font-bold text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5">
+            <i class="fa-solid fa-file-zipper"></i> Verify ZIP Archive
+          </div>
+          <p class="text-slate-700 dark:text-slate-300 leading-relaxed">Test extracting your <code class="font-mono">.zip</code> file before uploading to confirm all 4 deliverables are inside.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- PART 6: REFERENCE MATERIALS & FINAL PROJECT OBJECTIVE                 -->
+    <!-- ===================================================================== -->
+    <section id="part6" class="scroll-mt-24 space-y-6">
+      <div class="border-b border-slate-200 dark:border-slate-800 pb-3">
+        <span class="text-xs font-extrabold uppercase tracking-wider text-brand-600 dark:text-brand-400">Part 6 — Official Documentation &amp; Learning Goal</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Reference Materials &amp; Final Project Objective</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 space-y-4">
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">Official Documentation &amp; Tools</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <a href="https://www.php.net/manual/en/book.pdo.php" target="_blank" rel="noopener" class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition flex items-start gap-3">
+              <i class="fa-brands fa-php text-xl text-indigo-500 mt-0.5"></i>
+              <div>
+                <strong class="text-slate-900 dark:text-white block">PHP PDO Manual</strong>
+                <span class="text-slate-500 dark:text-slate-400">php.net/manual/en/book.pdo.php</span>
+              </div>
+            </a>
+            <a href="https://dev.mysql.com/doc/" target="_blank" rel="noopener" class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition flex items-start gap-3">
+              <i class="fa-solid fa-database text-xl text-sky-500 mt-0.5"></i>
+              <div>
+                <strong class="text-slate-900 dark:text-white block">MySQL 8.0 Reference</strong>
+                <span class="text-slate-500 dark:text-slate-400">dev.mysql.com/doc/</span>
+              </div>
+            </a>
+            <a href="https://www.apachefriends.org" target="_blank" rel="noopener" class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition flex items-start gap-3">
+              <i class="fa-solid fa-server text-xl text-orange-500 mt-0.5"></i>
+              <div>
+                <strong class="text-slate-900 dark:text-white block">XAMPP Distribution</strong>
+                <span class="text-slate-500 dark:text-slate-400">apachefriends.org</span>
+              </div>
+            </a>
+            <a href="https://support.hostinger.com" target="_blank" rel="noopener" class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition flex items-start gap-3">
+              <i class="fa-solid fa-cloud-arrow-up text-xl text-purple-500 mt-0.5"></i>
+              <div>
+                <strong class="text-slate-900 dark:text-white block">Hostinger Knowledge Base</strong>
+                <span class="text-slate-500 dark:text-slate-400">support.hostinger.com</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-gradient-to-br from-brand-950 to-indigo-950 text-white border border-brand-500/40 rounded-2xl p-6 flex flex-col justify-between space-y-4 shadow-xl">
+          <div class="space-y-2">
+            <span class="text-[11px] font-extrabold uppercase tracking-widest text-brand-300">Final Project Objective</span>
+            <h3 class="text-xl font-extrabold leading-snug">End-to-End Full-Stack Web Competency</h3>
+            <p class="text-xs text-slate-200 leading-relaxed">
+              Upon completing this final project, students demonstrate practical proficiency in designing normalized MySQL schemas, writing secure PHP PDO database connections, applying SQL comparison and CRUD operators, and deploying dynamic web applications to a live production server.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-white/15 flex items-center justify-between text-xs">
+            <span class="text-brand-200 font-semibold">Web Systems and Technology</span>
+            <a href="#top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="px-3 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 font-bold transition">
+              Back to Top <i class="fa-solid fa-arrow-up ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox Modal for Enlarging Visual UI Mockups -->
+  <div id="lightboxModal" onclick="if(event.target === this) closeLightbox()" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl">
+      <div class="px-5 py-3.5 bg-slate-100 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <h3 id="lightboxTitle" class="text-sm font-extrabold text-slate-900 dark:text-white">Visual Guide Preview</h3>
+        <button onclick="closeLightbox()" class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-rose-500 hover:text-white text-slate-700 dark:text-slate-300 flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div id="lightboxBody" class="p-6 overflow-y-auto max-h-[80vh]"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastBanner" class="fixed bottom-5 right-5 z-50 hidden px-4 py-2.5 rounded-xl bg-slate-900 text-white border border-brand-500/40 shadow-2xl text-xs font-bold flex items-center gap-2">
+    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toastText">Copied to clipboard!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    Web Systems and Technology — Final Project Instructions &amp; Interactive Visual Guide
+  </footer>
+
+  <script>
+    // =========================================================================
+    // 1. THEME TOGGLE & MOBILE NAVIGATION
+    // =========================================================================
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      localStorage.setItem('wst_theme', isDark ? 'dark' : 'light');
+      document.getElementById('themeIcon').className = isDark ? 'fa-solid fa-sun text-sm' : 'fa-solid fa-moon text-sm';
+    }
+
+    (function initTheme() {
+      const saved = localStorage.getItem('wst_theme');
+      if (saved === 'light') {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('themeIcon').className = 'fa-solid fa-moon text-sm';
+      }
+    })();
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+    // =========================================================================
+    // 2. PART 1 & PART 2 & PART 3 TABS / SWITCHERS
+    // =========================================================================
+    function switchDbOption(option) {
+      const contentA = document.getElementById('contentOptionA');
+      const contentB = document.getElementById('contentOptionB');
+      const btnA = document.getElementById('btnOptionA');
+      const btnB = document.getElementById('btnOptionB');
+
+      const activeClasses = 'px-4 py-2 rounded-lg text-xs font-bold bg-white dark:bg-brand-600 text-slate-900 dark:text-white shadow transition';
+      const inactiveClasses = 'px-4 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition';
+
+      if (option === 'A') {
+        contentA.classList.remove('hidden');
+        contentB.classList.add('hidden');
+        btnA.className = activeClasses;
+        btnB.className = inactiveClasses;
+      } else {
+        contentA.classList.add('hidden');
+        contentB.classList.remove('hidden');
+        btnA.className = inactiveClasses;
+        btnB.className = activeClasses;
+      }
+    }
+
+    let activePhpTab = 'db';
+    function switchPhpTab(tab) {
+      activePhpTab = tab;
+      ['db', 'test', 'view'].forEach(t => {
+        const btn = document.getElementById('phpTab' + t.charAt(0).toUpperCase() + t.slice(1));
+        const block = document.getElementById('codeBlock' + t.charAt(0).toUpperCase() + t.slice(1));
+        if (t === tab) {
+          btn.className = 'px-3 py-1.5 rounded-lg bg-brand-600 text-white font-bold transition';
+          block.classList.remove('hidden');
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition';
+          block.classList.add('hidden');
+        }
+      });
+    }
+
+    function copyActivePhpCode(btn) {
+      const map = { db: 'codeBlockDb', test: 'codeBlockTest', view: 'codeBlockView' };
+      copyCode(map[activePhpTab], btn);
+    }
+
+    function switchEnvConfig(env) {
+      const codeEl = document.getElementById('envConfigCode');
+      const labelEl = document.getElementById('envCodeLabel');
+      const btnLocal = document.getElementById('btnEnvLocal');
+      const btnProd = document.getElementById('btnEnvProd');
+
+      const activeCls = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-brand-600 text-slate-900 dark:text-white shadow transition';
+      const inactiveCls = 'px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition';
+
+      if (env === 'local') {
+        btnLocal.className = activeCls;
+        btnProd.className = inactiveCls;
+        labelEl.textContent = 'db.php — Local XAMPP Development Credentials';
+        codeEl.textContent = `<?php\n// Local XAMPP Environment\n$host     = 'localhost';\n$dbname   = 'student_management_system';\n$username = 'root';\n$password = '';\n?>`;
+      } else {
+        btnLocal.className = inactiveCls;
+        btnProd.className = activeCls;
+        labelEl.textContent = 'db.php — Hostinger Live Production Credentials';
+        codeEl.textContent = `<?php\n// Hostinger Live Production Environment\n$host     = 'localhost';\n$dbname   = 'u123456789_sms';      // Replace with your hPanel DB Name\n$username = 'u123456789_admin';    // Replace with your hPanel DB User\n$password = 'YourStrongPassword!'; // Replace with your hPanel DB Password\n?>`;
+      }
+    }
+
+    // =========================================================================
+    // 3. INTERACTIVE SQL OPERATORS & CRUD VISUAL LAB
+    // =========================================================================
+    const initialStudents = [
+      { id: 1, student_number: '2026-0001', first_name: 'Juan', last_name: 'Dela Cruz', email: 'juan.delacruz@example.edu' },
+      { id: 2, student_number: '2026-0002', first_name: 'Maria', last_name: 'Santos', email: 'maria.santos@example.edu' },
+      { id: 3, student_number: '2026-0003', first_name: 'Carlos', last_name: 'Reyes', email: 'carlos.reyes@example.edu' },
+      { id: 4, student_number: '2026-0004', first_name: 'Angela', last_name: 'Mendoza', email: 'angela.mendoza@example.edu' },
+      { id: 5, student_number: '2026-0005', first_name: 'Rafael', last_name: 'Villanueva', email: 'rafael.villanueva@example.edu' }
+    ];
+
+    let labStudents = JSON.parse(JSON.stringify(initialStudents));
+
+    function resetOperatorDataset() {
+      labStudents = JSON.parse(JSON.stringify(initialStudents));
+      applyOperatorPreset('ALL');
+      showToast('Sample dataset restored to original 5 records.');
+    }
+
+    function applyOperatorPreset(preset) {
+      document.querySelectorAll('.op-btn').forEach(btn => {
+        if (btn.dataset.preset === preset) {
+          btn.classList.add('ring-2', 'ring-brand-500');
+        } else {
+          btn.classList.remove('ring-2', 'ring-brand-500');
+        }
+      });
+
+      const sqlEl = document.getElementById('activeOperatorSql');
+      const titleEl = document.getElementById('operatorConceptTitle');
+      const descEl = document.getElementById('operatorConceptDesc');
+      const tbody = document.getElementById('operatorResultTableBody');
+      const badge = document.getElementById('operatorRowCountBadge');
+
+      let filtered = [...labStudents];
+      let statusLabel = 'Matched';
+      let highlightAll = false;
+
+      switch (preset) {
+        case 'ALL':
+          sqlEl.textContent = "SELECT * FROM students;";
+          titleEl.textContent = "SELECT * (Retrieve All Records)";
+          descEl.textContent = "Returns every column and row stored inside the students table.";
+          statusLabel = "Active";
+          break;
+        case 'EQ':
+          sqlEl.textContent = "SELECT * FROM students\nWHERE student_number = '2026-0002';";
+          titleEl.textContent = "Comparison Operator: = (Equal To)";
+          descEl.textContent = "Filters records where student_number exactly matches '2026-0002'.";
+          filtered = labStudents.filter(s => s.student_number === '2026-0002');
+          highlightAll = true;
+          break;
+        case 'GT':
+          sqlEl.textContent = "SELECT * FROM students\nWHERE id > 3;";
+          titleEl.textContent = "Comparison Operator: > (Greater Than)";
+          descEl.textContent = "Retrieves only student records whose primary key id is strictly greater than 3.";
+          filtered = labStudents.filter(s => s.id > 3);
+          highlightAll = true;
+          break;
+        case 'LTE':
+          sqlEl.textContent = "SELECT * FROM students\nWHERE id <= 2;";
+          titleEl.textContent = "Comparison Operator: <= (Less Than or Equal To)";
+          descEl.textContent = "Retrieves records where id is 2 or lower (includes boundary value 2).";
+          filtered = labStudents.filter(s => s.id <= 2);
+          highlightAll = true;
+          break;
+        case 'NEQ':
+          sqlEl.textContent = "SELECT * FROM students\nWHERE last_name != 'Santos';";
+          titleEl.textContent = "Comparison Operator: != or <> (Not Equal)";
+          descEl.textContent = "Excludes rows where last_name equals 'Santos' and returns all remaining students.";
+          filtered = labStudents.filter(s => s.last_name !== 'Santos');
+          highlightAll = true;
+          break;
+        case 'LIKE':
+          sqlEl.textContent = "SELECT * FROM students\nWHERE first_name LIKE '%a%';";
+          titleEl.textContent = "Pattern Matching Operator: LIKE '%a%'";
+          descEl.textContent = "The % wildcard matches zero or more characters, finding any first_name containing the letter 'a'.";
+          filtered = labStudents.filter(s => s.first_name.toLowerCase().includes('a'));
+          highlightAll = true;
+          break;
+        case 'AND_OR':
+          sqlEl.textContent = "SELECT * FROM students\nWHERE (id >= 2 AND id <= 4)\n   OR last_name = 'Villanueva';";
+          titleEl.textContent = "Logical Operators: AND / OR";
+          descEl.textContent = "Combines multiple conditions: selects IDs 2 through 4 (AND) plus any student with last_name 'Villanueva' (OR).";
+          filtered = labStudents.filter(s => (s.id >= 2 && s.id <= 4) || s.last_name === 'Villanueva');
+          highlightAll = true;
+          break;
+        case 'ORDER_DESC':
+          sqlEl.textContent = "SELECT * FROM students\nORDER BY last_name DESC;";
+          titleEl.textContent = "Sorting Clause: ORDER BY ... DESC";
+          descEl.textContent = "Sorts all student records alphabetically in reverse (Z → A) order by last_name.";
+          filtered = [...labStudents].sort((a, b) => b.last_name.localeCompare(a.last_name));
+          statusLabel = "Sorted Z→A";
+          highlightAll = true;
+          break;
+        case 'INSERT':
+          if (!labStudents.some(s => s.student_number === '2026-0006')) {
+            labStudents.push({
+              id: 6,
+              student_number: '2026-0006',
+              first_name: 'Sofia',
+              last_name: 'Garcia',
+              email: 'sofia.garcia@example.edu'
+            });
+          }
+          sqlEl.textContent = "INSERT INTO students (student_number, first_name, last_name, email)\nVALUES ('2026-0006', 'Sofia', 'Garcia', 'sofia.garcia@example.edu');";
+          titleEl.textContent = "CRUD Operation: INSERT INTO";
+          descEl.textContent = "Appends a new student row (ID 6 — Sofia Garcia) into the students table.";
+          filtered = [...labStudents];
+          statusLabel = "Inserted";
+          break;
+        case 'UPDATE':
+          labStudents = labStudents.map(s => s.id === 1 ? { ...s, email: 'juan.dc.updated@example.edu' } : s);
+          sqlEl.textContent = "UPDATE students\nSET email = 'juan.dc.updated@example.edu'\nWHERE id = 1;";
+          titleEl.textContent = "CRUD Operation: UPDATE ... SET ... WHERE";
+          descEl.textContent = "Modifies the email address specifically for student ID 1 using the WHERE clause.";
+          filtered = [...labStudents];
+          statusLabel = "Updated";
+          break;
+        case 'DELETE':
+          labStudents = labStudents.filter(s => s.id !== 5);
+          sqlEl.textContent = "DELETE FROM students\nWHERE id = 5;";
+          titleEl.textContent = "CRUD Operation: DELETE FROM ... WHERE";
+          descEl.textContent = "Removes the record with id = 5 from the database table. Click 'Reset Dataset' to restore.";
+          filtered = [...labStudents];
+          statusLabel = "Deleted ID 5";
+          break;
+      }
+
+      badge.textContent = `${filtered.length} row${filtered.length === 1 ? '' : 's'} returned`;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-4 px-3 text-center text-slate-400">0 rows matched this query condition.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(row => {
+        const isHighlighted = highlightAll || (preset === 'INSERT' && row.id === 6) || (preset === 'UPDATE' && row.id === 1);
+        return `
+          <tr class="${isHighlighted ? 'highlight-match font-semibold' : ''}">
+            <td class="py-2 px-3 text-brand-600 dark:text-brand-400 font-bold">${row.id}</td>
+            <td class="py-2 px-3">${row.student_number}</td>
+            <td class="py-2 px-3">${row.first_name}</td>
+            <td class="py-2 px-3">${row.last_name}</td>
+            <td class="py-2 px-3 text-slate-600 dark:text-slate-300">${row.email}</td>
+            <td class="py-2 px-3">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-sans font-bold ${isHighlighted ? 'bg-brand-500/20 text-brand-700 dark:text-brand-300' : 'bg-slate-200/70 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}">
+                ${isHighlighted ? statusLabel : 'Stored'}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // 4. LIGHTBOX MODAL FOR ENLARGING UI MOCKUPS
+    // =========================================================================
+    function openLightbox(elementId, title) {
+      const source = document.getElementById(elementId);
+      if (!source) return;
+      document.getElementById('lightboxTitle').textContent = title;
+      const clone = source.cloneNode(true);
+      clone.id = '';
+      clone.classList.remove('mockup-frame');
+      document.getElementById('lightboxBody').innerHTML = '';
+      document.getElementById('lightboxBody').appendChild(clone);
+      document.getElementById('lightboxModal').classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.add('hidden');
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // =========================================================================
+    // 5. PERSISTENT 14-ITEM CHECKLIST & PROJECT_DETAILS.TXT GENERATOR
+    // =========================================================================
+    const checklistItems = [
+      "Install XAMPP (or MySQL Server + Workbench) and start Apache & MySQL services",
+      "Create database named student_management_system (utf8mb4_general_ci)",
+      "Create students table with primary key, auto_increment, and unique student_number",
+      "Insert at least 5 sample student records and verify in Browse / Result Grid",
+      "Create local folder htdocs/student_system/ with db.php, test_connection.php, and students.php",
+      "Verify local PDO database connection and display records in browser",
+      "Apply SQL operators (=, >, <, LIKE, AND/OR, ORDER BY, CRUD) in queries",
+      "Create MySQL database & user inside Hostinger hPanel",
+      "Export local database to .sql and import into Hostinger phpMyAdmin",
+      "Upload PHP project files to Hostinger public_html/ and update db.php credentials",
+      "Test live Hostinger URL over HTTPS and verify database records load properly",
+      "Capture all 6 required screenshots (local DB, local output, Hostinger DB, File Manager, live output)",
+      "Generate and verify Project_Details.txt with full name, section, live URL, and DB name",
+      "Compress all 4 deliverables into LastName_FirstName_FinalProject.zip"
+    ];
+
+    let checkedState = JSON.parse(localStorage.getItem('wst_checklist_v1') || '[]');
+    if (checkedState.length !== checklistItems.length) {
+      checkedState = new Array(checklistItems.length).fill(false);
+    }
+
+    function renderChecklist() {
+      const container = document.getElementById('checklistContainer');
+      container.innerHTML = checklistItems.map((text, idx) => `
+        <label class="flex items-start gap-3 p-2.5 rounded-xl border cursor-pointer transition ${checkedState[idx] ? 'bg-emerald-500/10 border-emerald-500/30 text-slate-900 dark:text-white' : 'bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500/40'}">
+          <input type="checkbox" ${checkedState[idx] ? 'checked' : ''} onchange="toggleChecklistItem(${idx})" class="mt-0.5 w-4 h-4 rounded accent-brand-600 cursor-pointer" />
+          <span class="${checkedState[idx] ? 'line-through opacity-75' : ''}">${idx + 1}. ${text}</span>
+        </label>
+      `).join('');
+      updateProgressUI();
+    }
+
+    function toggleChecklistItem(idx) {
+      checkedState[idx] = !checkedState[idx];
+      localStorage.setItem('wst_checklist_v1', JSON.stringify(checkedState));
+      renderChecklist();
+    }
+
+    function resetChecklist() {
+      checkedState = new Array(checklistItems.length).fill(false);
+      localStorage.setItem('wst_checklist_v1', JSON.stringify(checkedState));
+      renderChecklist();
+      showToast('Submission checklist reset.');
+    }
+
+    function updateProgressUI() {
+      const done = checkedState.filter(Boolean).length;
+      const total = checklistItems.length;
+      const pct = Math.round((done / total) * 100);
+      document.getElementById('navProgressText').textContent = `${done} / ${total} Ready`;
+      document.getElementById('heroProgressPct').textContent = `${pct}%`;
+      document.getElementById('heroProgressBar').style.width = `${pct}%`;
+    }
+
+    function updateProjectDetailsPreview() {
+      const name = document.getElementById('inputFullName').value.trim() || 'Dela Cruz, Juan P.';
+      const sec = document.getElementById('inputSection').value.trim() || 'BSIT 3-A — Web Systems and Technology';
+      const url = document.getElementById('inputLiveUrl').value.trim() || 'https://yourdomain.com/students.php';
+      const db = document.getElementById('inputDbName').value.trim() || 'u123456789_sms';
+      const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      const content =
+`====================================================
+WEB SYSTEMS AND TECHNOLOGY — FINAL PROJECT DETAILS
+====================================================
+Student Full Name : ${name}
+Course & Section  : ${sec}
+Live Website URL  : ${url}
+MySQL Database    : ${db}
+Submission Date   : ${today}
+====================================================`;
+
+      document.getElementById('projectDetailsPreview').textContent = content;
+      return content;
+    }
+
+    function downloadProjectDetails() {
+      const text = updateProjectDetailsPreview();
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'Project_Details.txt';
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast('Downloaded Project_Details.txt');
+    }
+
+    // =========================================================================
+    // 6. CLIPBOARD & TOAST HELPERS
+    // =========================================================================
+    function copyCode(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast('Copied to clipboard!');
+      } catch (err) {
+        showToast('Unable to copy automatically.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const banner = document.getElementById('toastBanner');
+      document.getElementById('toastText').textContent = msg;
+      banner.classList.remove('hidden');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => banner.classList.add('hidden'), 2600);
+    }
+
+    // Initialize interactive components on load
+    renderChecklist();
+    updateProjectDetailsPreview();
+    applyOperatorPreset('ALL');
+  </script>
+</body>
+</html>
